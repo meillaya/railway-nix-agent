@@ -5,14 +5,14 @@
     "name": "Nix Agent Workspace | Any Package, Any Version, Password-Gated",
     "description": "A coding agent with all of nixpkgs on Railway: light alpine+nix image, zix installs any package version in seconds, loopback-only agent behind basic auth.",
     "upstream": {
-      "image": "ghcr.io/<owner>/railway-nix-agent:<version>"
+      "image": "ghcr.io/meillaya/railway-nix-agent:<version>"
     }
   },
   "services": [
     {
       "name": "railway-nix-agent",
       "source": {
-        "image": "ghcr.io/<owner>/railway-nix-agent:<version>"
+        "image": "ghcr.io/meillaya/railway-nix-agent:<version>"
       },
       "needs_volume": true,
       "volume_mount_path": "/home/agent",

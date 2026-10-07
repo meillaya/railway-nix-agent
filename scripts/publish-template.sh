@@ -10,10 +10,10 @@
 #   docker or podman logged in to GHCR    (docker login ghcr.io)
 #
 # Usage:
-#   IMAGE=ghcr.io/<owner>/railway-nix-agent:0.1.0 scripts/publish-template.sh
+#   IMAGE=ghcr.io/meillaya/railway-nix-agent:0.1.0 scripts/publish-template.sh
 set -euo pipefail
 
-IMAGE="${IMAGE:?set IMAGE=ghcr.io/<owner>/railway-nix-agent:<version>}"
+IMAGE="${IMAGE:?set IMAGE=ghcr.io/meillaya/railway-nix-agent:<version>}"
 TEMPLATE_NAME="${TEMPLATE_NAME:-Nix Agent Workspace}"
 CATEGORY="${CATEGORY:-AI/ML}"
 DESCRIPTION="${DESCRIPTION:-A coding agent with all of nixpkgs on Railway: light alpine + nix image, zix gets any package version in seconds, password-gated.}"
