@@ -1,0 +1,4 @@
+assets/
+result*
+.git/
+*.qcow2*

@@ -1,0 +1,55 @@
+{
+  "manifest_version": "1.0.0",
+  "template": {
+    "slug": "nix-agent-workspace",
+    "name": "Nix Agent Workspace | Any Package, Any Version, Password-Gated",
+    "description": "A coding agent with all of nixpkgs on Railway: light alpine+nix image, zix installs any package version in seconds, loopback-only agent behind basic auth.",
+    "upstream": {
+      "image": "ghcr.io/<owner>/railway-nix-agent:<version>"
+    }
+  },
+  "services": [
+    {
+      "name": "railway-nix-agent",
+      "source": {
+        "image": "ghcr.io/<owner>/railway-nix-agent:<version>"
+      },
+      "needs_volume": true,
+      "volume_mount_path": "/home/agent",
+      "http": true
+    }
+  ],
+  "required_inputs": [
+    {
+      "key": "AGENT_PASSWORD",
+      "service": "railway-nix-agent",
+      "description": "Basic-auth password for the agent surface.",
+      "secret": true,
+      "strategy": "generate",
+      "generate": "strong_password"
+    }
+  ],
+  "deploy": {
+    "mcp": {
+      "server": "railway",
+      "tool": "deploy_template",
+      "args": {
+        "template_code": "nix-agent-workspace"
+      }
+    },
+    "cli": "railway deploy --template nix-agent-workspace"
+  },
+  "post_deploy": {
+    "healthcheck": {
+      "service": "railway-nix-agent",
+      "method": "GET",
+      "path": "/healthz",
+      "expect_status": 200
+    }
+  },
+  "resources": {
+    "expected_services": 1,
+    "needs_volume": true
+  },
+  "note": "EXAMPLE shaped like the manifest railway.com generates at /deploy/<slug>/manifest.json after `railway templates create|publish`. The real values (template id, image digest, ready-seconds, validation) are produced by that publish flow - scripts/publish-template.sh walks it."
+}
